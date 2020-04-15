@@ -1,6 +1,7 @@
+@import "colors";
+
 .snip-layout.snip-layout {
   * {
-    font-family: consolas, Menlo, monospace, sans-serif;
   }
 
   .snip-product__name {
@@ -8,7 +9,7 @@
   }
 
   .snip-header {
-    background: #663399;
+    background: $orange;
   }
 
   .snip-layout__main-container {
@@ -20,4 +21,3 @@
     border-radius: 0;
   }
 }
-

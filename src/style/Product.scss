@@ -1,3 +1,8 @@
+@import "colors";
+
+$scale-amount: 0.93;
+$scale-time: 0.3s;
+
 .Product {
   text-decoration: none;
   color: black;
@@ -5,69 +10,73 @@
 }
 
 .Product__image {
-  border: 3px solid black;
+  border: 1px solid $darkGray;
   padding: 7px;
   width: 100%;
   position: relative;
   margin-bottom: 25px;
-  box-shadow: 9px 9px black;
 
   img {
     width: 100%;
     display: block;
+    animation: scale-out $scale-time ease-out forwards;
   }
 }
 
-.Product:hover .Product__image {
-  img {
-    transform: skew(-15deg, -5deg) rotate(20deg);
+.Product .Product__image {
+  img:hover {
+    animation: scale-in $scale-time ease-out forwards;
   }
 
-  &:before, &:after {
+  &:before,
+  &:after {
     content: "";
     position: absolute;
-    background: black;
+    background-color: $darkGray;
     z-index: 2;
   }
 
   &:before {
-    left: 50%;
-    margin-left: 1px;
-    top: 8px;
-    bottom: 7px;
-    animation: cross-1 6s steps(4, end) infinite alternate-reverse;
+    opacity: 0.5;
   }
 
   &:after {
-    top: 50%;
-    margin-top: 1px;
-    left: 7px;
-    right: 7px;
-    animation: cross-2 9s steps(6, end) infinite alternate-reverse;
+    opacity: 0.5;
+    animation: scale-out 1s ease-in-out;
   }
 }
 
 .Product__details {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .Product__name {
   font-weight: bold;
-  padding-right: 20px;
+  padding-bottom: 8px;
+  color: $darkGray;
+}
+
+.Product__artist {
+  padding-bottom: 8px;
+  color: $darkGray;
+  font-style: italic;
 }
 
 .Product__price {
-  font-size: 0.8em;
+  color: $darkGray;
+  padding-bottom: 10px;
+
   font-weight: normal;
-  color: #555;
 }
 
 .Product__buy {
   flex: 1;
   text-align: right;
   text-transform: uppercase;
-  background: #663399;
+  background: $orange;
   padding: 10px 20px;
   color: white;
   position: relative;
@@ -75,23 +84,27 @@
 
   &:hover {
     text-decoration: underline;
+  }
+}
 
-    &:before {
-      content: "Yes now";
-      position: absolute;
-      top: -10px;
-      left: 60%;
-      white-space: nowrap;
-      font-family: "times new roman", times, serif;
-      font-weight: normal;
-      font-style: italic;
-      mix-blend-mode: difference;
-      text-transform: lowercase;
-      text-decoration: overline;
-      color: #00efff;
-      font-size: 2em;
-      animation: blink 6s steps(4, end) infinite alternate-reverse;
-    }
+@keyframes scale-in {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+  100% {
+    transform: scale($scale-amount);
+    -webkit-transform: scale($scale-amount);
+  }
+}
+@keyframes scale-out {
+  0% {
+    transform: scale($scale-amount);
+    -webkit-transform: scale($scale-amount);
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
   }
 }
 
@@ -99,8 +112,9 @@
   $steps: 5;
 
   @for $i from 0 through $steps {
-    #{percentage($i * (1 / $steps))}{
-      transform: translate((random(50) - 25) + px, (random(50) - 25) + px) rotate((30 - random(60)) + deg);
+    #{percentage($i * (1 / $steps))} {
+      transform: translate((random(50) - 25) + px, (random(50) - 25) + px)
+        rotate((30 - random(60)) + deg);
       width: (1 + random(3)) + px;
     }
   }
@@ -110,8 +124,9 @@
   $steps: 5;
 
   @for $i from 0 through $steps {
-    #{percentage($i * (1 / $steps))}{
-      transform: translate((random(50) - 25) + px, (random(50) - 25) + px) rotate((30 - random(60)) + deg);
+    #{percentage($i * (1 / $steps))} {
+      transform: translate((random(50) - 25) + px, (random(50) - 25) + px)
+        rotate((30 - random(60)) + deg);
       height: (1 + random(2)) + px;
     }
   }
